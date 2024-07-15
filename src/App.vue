@@ -305,7 +305,7 @@ let templatesInfoData = reactive(getFromLocalStorage('templatesInfoData',[
 ]));
 
 const changeRating = (index: number, formId: number) => {
-  skillInfoData.forms[formId - 1].data.forEach((input) => {
+  skillInfoData.forms[formId - 1].data.forEach((input:any) => {
     if (input.rating !== undefined) input.rating = index + 1;
   });
 };
@@ -325,20 +325,20 @@ const updateFormsData = (newForm: any, formType: string) => {
 const removeFormsData = (id: any, formType: string) => {
   if (formType === "education")
     educationInfoData.forms = educationInfoData.forms.filter(
-      (educationBlock) => {
+      (educationBlock:any) => {
         return educationBlock.id !== id;
       }
     );
   else if (formType === "work")
-    workInfoData.forms = workInfoData.forms.filter((workBlock) => {
+    workInfoData.forms = workInfoData.forms.filter((workBlock:any) => {
       return workBlock.id !== id;
     });
   else if (formType === "project")
-    projectInfoData.forms = projectInfoData.forms.filter((projectBlock) => {
+    projectInfoData.forms = projectInfoData.forms.filter((projectBlock:any) => {
       return projectBlock.id !== id;
     });
   else if (formType === "skill")
-    skillInfoData.forms = skillInfoData.forms.filter((skillBlock) => {
+    skillInfoData.forms = skillInfoData.forms.filter((skillBlock:any) => {
       return skillBlock.id !== id;
     });
 };
