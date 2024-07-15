@@ -1,0 +1,8 @@
+@mixin color_scheme($bgColor, $fontColor) {
+  background: $bgColor;
+  color: $fontColor;
+}
+
+@mixin shadow_color($color) {
+  box-shadow: 0 5px 5px 1px $color;
+}

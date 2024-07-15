@@ -1,0 +1,22 @@
+//fonts
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+//breackpoints
+$breakpoint-desktop: 1399px;
+$breakpoint-tablet: 860px;
+$breakpoint-mobile: 460px;
+
+//colors
+$green: #47e503;
+$dark-green: #1a5700;
+$red: #ff4949;
+$dark-red: #910000;
+$blue: #256d85;
+$dark-blue: rgb(43, 72, 101);
+$transparent-blue: #50bfff80;
+$light-gray: #eeeded;
+//sizes
+$title-font: 18px;
+$title-font-sm: 12px;
+
+//global
+$shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.2);
