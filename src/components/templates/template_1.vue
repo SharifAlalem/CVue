@@ -6,6 +6,7 @@
     :style="bgColor"
     contenteditable="true"
   >
+    <span id="page-break">Page Break</span>
     <aside>
       <div class="image">
         <img
@@ -171,7 +172,7 @@
         </ul>
       </div>
     </main>
-    <footer>developed by sharif Alalem</footer>
+    <footer>Developed by Sharif Alalem | <a href="https://www.linkedin.com/in/sharif-alalem-281446133/">LinkedIn</a></footer>
   </template>
 </template>
 <script setup lang="ts">
@@ -202,6 +203,23 @@ const findValue = (dataArray: any, targetValue: any) => {
 <style lang="scss" scoped>
 @import "../../assets/styles/mixins";
 
+#page-break {
+  position: absolute;
+  top: 297mm;
+  left: 0;
+  right: 0;
+  display: inline-block;
+  text-align: left;
+  
+  &::before,::after{
+    content: '';
+    display: block;
+    border-bottom: 5px solid red;
+    height: 5px;
+    width: 100%;
+  }
+}
+
 .actions {
   display: flex;
   justify-content: center;
@@ -209,20 +227,25 @@ const findValue = (dataArray: any, targetValue: any) => {
   flex-direction: column;
   margin: 50px 0;
 }
+
 button {
   z-index: 999999999999;
   cursor: pointer;
 }
 
 .container {
+  position: relative;
+  width: 210mm !important; /* A4 width */
+  min-height: 297mm; /* A4 height */
+  margin: 0 auto;
   font-family: "Open Sans", sans-serif;
   width: 100%;
   display: grid;
-  grid-template-columns: 0.3fr 1fr;
-  grid-template-rows: 10fr 0.1fr;
+  grid-template-columns: 0.5fr 1fr;
+  grid-template-rows: 10fr;
   grid-template-areas:
-    "aside main"
-    "footer footer";
+    "aside main";
+    overflow: hidden
 }
 
 main {
@@ -258,6 +281,7 @@ main {
     text-decoration: underline;
   }
 }
+
 aside {
   @include color_scheme(var(--bg-color), var(--font-color));
   grid-area: aside;
@@ -266,12 +290,14 @@ aside {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 0 20px;
 
   div {
     margin-bottom: 30px;
   }
 
   .image img {
+    width: 190px;
     margin: 20px;
     text-align: center;
     border-radius: 50%;
@@ -319,11 +345,20 @@ aside {
     }
   }
 }
+
 footer {
-  @include color_scheme(black, white);
-  grid-area: footer;
+  @include color_scheme(red, white);
   padding: 5px 0;
-  font-size: 10px;
+  font-size: 18px;
   font-family: "Arial Narrow", Arial, sans-serif;
+  position: absolute;
+  top: 80px;
+  left: -55px;
+  width: 300px;
+  transform: rotate(-45deg);
+
+  a {
+    color: white;
+  }
 }
 </style>

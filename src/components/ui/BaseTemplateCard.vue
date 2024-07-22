@@ -25,20 +25,41 @@ const loadComponent = async () => {
     console.error(error);
   }
 }
-const generatePDF = () => {
-  const content:any = document.getElementById('content');
-  html2canvas(content).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF();
-    pdf.addImage(imgData, 'PNG', 10, 10, 180, 160);
-    pdf.save('download.pdf');
-  });
-};
+const generatePDF = async () => {
+  const resume = document.getElementById('content');
+  const pageBreak = document.getElementById('page-break');
+  pageBreak!.style.display = 'none';
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageHeight = 297; // A4 page height in mm
+  const pageWidth = 210; // A4 page width in mm
+  const margin = 0; // Margin in mm
 
-const personalInfoData: any = inject("personalInfoData");
+  const canvas = await html2canvas(resume!, { scale: 2 ,allowTaint: true});
+  const imgData = canvas.toDataURL('image/png');
+  const imgWidth = pageWidth - 2 * margin;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+  let heightLeft = imgHeight;
+  let position = 0;
+  pdf.html(resume!,{autoPaging:'text'});
+  pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+  heightLeft -= pageHeight - margin * 2;
+
+  while (heightLeft > 0) {
+    position = heightLeft - imgHeight + margin * 2;
+    pdf.addPage();
+    pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight - margin * 2;
+  }
+
+  pdf.save('resume.pdf');
+  window.open(pdf.output('bloburl'));
+  pageBreak!.style.display = 'block';
+}
+
 //theme dynamic change color
 let bgColor: any = reactive({
-  "--bg-color": "#0930A5",
+  "--bg-color": "#0FA38B",
   "--font-color": "#ffffff",
 });
 
@@ -59,10 +80,6 @@ const updatepdfContent = (newValue: any) => {
   pdfContent.value = newValue;
 };
 provide("updatepdfContent", updatepdfContent);
-const progress = ref(0);
-const hasAlreadyParsed = ref(false);
-
-provide("progress", progress);
 provide("generateReport", generatePDF);
 //===========================
 
@@ -77,7 +94,8 @@ onMounted(() => {
 #templateCard {
   border: 2px solid white;
   border-radius: 10px;
-  width: 100%;
+  width: fit-content;
+  margin: auto;
   height: 100%;
   background-color: white;
   z-index: 999;

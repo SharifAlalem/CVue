@@ -10,16 +10,26 @@
         v-for="template in templatesInfoData"
         :key="template.templateId"
       >
-        <img @click="chooseTemplate(template.templateId)" src="@/assets/templates/template1.png" alt="template" />
+        <img @click="chooseTemplate(template.templateId)" :src="imageFetch(template.templateId)" alt="template" />
       </router-link>
     </div>
   </section>
 </template>
 <script setup lang="ts">
 import { inject } from "vue";
-
+import template_1 from "@/assets/templates/template1.png";
+import template_2 from "@/assets/templates/template2.png";
 const templatesInfoData: any = inject("templatesInfoData");
 const chooseTemplate: any = inject("chooseTemplate");
+
+const imageFetch = (id:any) => {
+  if(id == 1){
+    return template_1
+  }
+  else{
+    return template_2
+  }
+}
 </script>
 
 <style lang="scss" scoped>
