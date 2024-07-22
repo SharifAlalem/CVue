@@ -1,1 +1,0 @@
-import{_ as e,o,c as t,a as s}from"./index-UlMTQ-us.js";const c={},a={id:"about"},n=s("h1",null,"This is an about page",-1),_=[n];function r(i,d){return o(),t("div",a,_)}const f=e(c,[["render",r]]);export{f as default};
